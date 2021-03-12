@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<h1>what u did today</h1>
+<div class="container">
+	{% for workout in daily_workouts %}
+		<ul class="list-group">
+		  <li class="list-group-item">{{ workout.user }}</li>
+		  <li class="list-group-item">{{ workout.workout }}</li>
+		  <li class="list-group-item">{{ workout.calories_burnt }}</li>
+		  <a href="{% url 'workout-update' pk=workout.pk %}" class="btn btn-primary">Update Goal</a>
+		</ul>
+	{% endfor %}
+</div>
+<br>
+
+<div class="container">
+<h1> what u did this week</h1>
+	{% for workout in weekly_workouts %}
+		<ul class="list-group">
+		  <li class="list-group-item">{{ workout.user }}</li>
+		  <li class="list-group-item">{{ workout.workout }}</li>
+		  <li class="list-group-item">{{ workout.calories_burnt }}</li>
+		  <a href="{% url 'workout-update' pk=workout.pk %}" class="btn btn-primary">Update Goal</a>
+		</ul>
+	{% endfor %}
+</div>
+{% endblock content %}
+
+	  

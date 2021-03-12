@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% for workout in workouts %}
+	<ul class="list-group">
+	  <li class="list-group-item">{{ workout.user }}</li>
+	  <li class="list-group-item">{{ workout.workout }}</li>
+	  <li class="list-group-item">{{ workout.duaration }}</li>
+	  <li class="list-group-item">{{ workout.calories_burnt }}</li>
+	</ul>
+{% endfor %}
+{% endblock content %}
+
+

@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="content-section">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Meal</legend>
+				{{ formset.management_form }}
+				{%for form in formset%}
+					{{form|crispy}}
+				{%endfor%}
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit" name="edit" value="edit">Add another</button>
+				<button class="btn btn-outline-info" type="submit" name="create" value="create">Create</button>
+			</div>
+		</form>
+	</div>
+{% endblock content %}

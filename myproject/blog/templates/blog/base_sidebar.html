@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+      <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css'%}">
+
+  {% if title %}
+    <title>Tracker - {{ title }} </title>
+  {% else %}
+    <title>Tracker</title>
+  {% endif %}
+</head>
+ <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'meal-list'%}">Tracker</a>
+      <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+      <!-- <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href=" {%url 'logout'%}">Sign out</a>
+        </li>
+      </ul> -->
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row d-flex">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'meal-list'%}">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'goal-breakdown'%}">
+                  <span data-feather="user-check"></span>
+                  Goals
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'nutrition'%}">
+                  <span data-feather="server"></span>
+                  Food database
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'addfood'%}">
+                  <span data-feather="upload"></span>
+                  Add foods to database
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'meal-create'%}">
+                  <span data-feather="file-plus"></span>
+                  Log Meals
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'workout-add' %}">
+                  <span data-feather="activity"></span>
+                  Log Workouts
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">
+                  <span data-feather="log-out"></span>
+                  Sign out 
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Analytics</h1>
+            <!-- <div class="btn-toolbar mb-2 mb-md-0">
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div> -->
+            </div>
+              <div class="col-md-8">
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                      {{ message }}
+                    </div>
+                  {% endfor%}
+                  {%endif%}
+                  {% block content %}{% endblock %}
+            </div>
+          </main>
+  </body>
+  <!-- feather icons -->
+  <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+  <!-- Optional JavaScript -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+  new Chart(document.getElementById("daily_tracking_chart"), {
+    type: 'bar',
+    data: {
+      labels: ["Carbs", "Protein", "Fat"],
+      datasets: [{
+        label: "todays intake",
+        backgroundColor: ["#DC143C", "#228B22","#00CED1"],
+        data: [{{optimal_proteins|safe}},{{optimal_carbs|safe}}, {{optimal_fats|safe}}]
+      },]
+    },
+    options: {
+      responsive: false
+    }
+});
+</script>
+
+<script>
+  var ctx = document.getElementById("OverAll");
+  var OverAll = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Proteins', 'Carbs', 'Fats'],
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Optimal intake',
+          // backgroundColor:["#33d4ff"," #33d4ff "," #33d4ff "],
+          // the 1st and last value are placeholders and never get displayed on the chart
+          data: [{{optimal_proteins|safe}},{{optimal_carbs|safe}},{{optimal_fats|safe}}],
+          fill: false,
+        },
+        {
+          type: 'bar', 
+          label: 'Actualt intake today',
+          // the 1st and last value are placeholders and never get displayed on the chart
+          // to get a straight line, the 1st and last values must match the same value as
+          // the next/prev respectively
+          // backgroundColor:["##0000FF","##0000FF","##0000FF"],
+          backgroundColor:["#33d4ff"," #33d4ff "," #33d4ff "],
+          data: [{{todays_proteins|safe}},{{todays_carbs|safe}},{{todays_fats|safe}}],
+          // fill: false,
+          borderWidth: 1,
+          // borderColor: '#f00',
+          borderDash: [5,4],
+          lineTension: 0,
+          steppedLine: true
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+    //  responsive: false
+    // },
+      scales: {
+        yAxes: [{
+          // stacked: true,
+          ticks: {
+            stepSize: 10,
+            max: 300,
+            min: 10,
+          }
+      }],  
+      xAxes: [{
+        // stacked: true,
+        // exclude the 1st and last label placeholders by specifying the min/mix ticks
+        ticks: {
+          min: 'Proteins',
+          max: 'Fats',
+        }
+      }],
+    }
+  }
+});
+
+</script>
+
+<!-- <script>
+//  new Chart(document.getElementById("goal_chart"), {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Carbs", "Protein", "Fat"],
+//       datasets: [{
+//         label: "Population (millions)",
+//         backgroundColor: ["#DC143C", "#228B22","#00CED1"],
+//         data: [{{optimal_proteins|safe}},{{optimal_carbs|safe}}, {{optimal_fats|safe}}]
+//       }]
+//     },
+//     options: {
+//       responsive: false
+//     }
+// });
+</script> -->
+
+<script>
+//  new Chart(document.getElementById("breakfast_chart"), {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Carbs", "Protein", "Fat"],
+//       datasets: [{
+//         label: "Population (millions)",
+//         backgroundColor: ["#DC143C", "#228B22","#00CED1"],
+//         data: [{{breakfast_overall_KH|safe}},{{breakfast_overall_Protein|safe}}, {{breakfast_overall_Fett|safe}}]
+//       }]
+//     },
+//     options: {
+//       responsive: false
+//     }
+// });
+</script><!-- 
+<script>
+//  new Chart(document.getElementById("lunch_chart"), {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Carbs", "Protein", "Fat"],
+//       datasets: [{
+//         label: "Population (millions)",
+//         backgroundColor: ["#DC143C", "#228B22","#00CED1"],
+//         data: [{{lunch_overall_KH|safe}},{{lunch_overall_Protein|safe}}, {{lunch_overall_Fett|safe}}]
+//       }]
+//     },
+//     options: {
+//       responsive: false
+//     }
+// });
+</script> -->
+<!-- <script>
+//  new Chart(document.getElementById("dinner_chart"), {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Carbs", "Protein", "Fat"],
+//       datasets: [{
+//         label: "Population (millions)",
+//         backgroundColor: ["#DC143C", "#228B22","#00CED1"],
+//         data: [{{dinner_overall_KH|safe}},{{dinner_overall_Protein|safe}}, {{dinner_overall_Fett|safe}}]
+//       }]
+//     },
+//     options: {
+//       responsive: false
+//     }
+// });
+</script> -->
+<!-- <script>
+//  new Chart(document.getElementById("snack_chart"), {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Carbs", "Protein", "Fat"],
+//       datasets: [{
+//         label: "Population (millions)",
+//         backgroundColor: ["#DC143C", "#228B22","#00CED1"],
+//         data: [{{snack_overall_KH|safe}},{{snack_overall_Protein|safe}}, {{snack_overall_Fett|safe}}]
+//       }]
+//     },
+//     options: {
+//       responsive: false
+//     }
+// });
+</script> -->

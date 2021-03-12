@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% for object in object_list %}
+	<ul class="list-group">
+	  <li class="list-group-item">{{ object.user }}</li>
+	  <li class="list-group-item">your current goal is to {{ object.goal }} weight</li>
+	  <li class="list-group-item">your activity level is {{ object.acctivity_level }}</li>
+	  <li class="list-group-item">your daily calori goal is {{ object.goal_calories }} calories</li>
+	</ul>
+<!-- 	<article class="media content-section">
+	<img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+	  <div class="media-body">
+	    <div class="article-metadata">
+	      <a class="mr-2" href="#">{{ object.user }}</a>
+	      <small class="text-muted">{{ object.goal }}</small>
+	    </div>
+	    <h2 class="article-title"> {{ object.acctivity_level }}</h2>
+	    <p class="article-content">{{ object.goal_calories }}</p>
+	  </div>
+	</article> -->
+{% endfor %}
+{% endblock content %}
+
+

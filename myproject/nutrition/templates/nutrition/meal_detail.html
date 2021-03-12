@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{%for meal,content,serving in meals%}
+<h4>you edited your {{meal}} meal and now it looks like this</h4>
+<br>
+	<ul class="list-group">
+		<li class="list-group-item">{{content}}</li>
+		<li class="list-group-item">{{serving}}</li>
+	</ul>
+{%endfor%}
+{% endblock content %}

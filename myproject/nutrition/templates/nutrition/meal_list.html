@@ -1,0 +1,158 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="container">
+    <h4>Goals</h4>
+      <p>goal calories - <span class="text-success"> food eaten</span>  = <span class="text-danger">calories left</span></p>
+      <p class="text-dark">{{goal_calories}} - <span class="text-success"> {{daily_overall_Calories}} </span> = <span class="text-danger">{{remainder}}</span></p>
+      <hr class="hr-text">
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="container">
+        <h4>Nutrition Tracking</h4>
+        <hr class="hr-text">
+        <canvas class="content-section" id="OverAll" width="400" height="500"></canvas>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <h4>Meals logged today</h4>
+      <hr class="hr-text">
+    </div>
+    <div class="container">
+      <h5>Breakfast</h5>
+        {%for id,food in breakfast_ids%}
+          <a href="{% url 'meal-update' pk=id %}" class="badge badge-success">{{food}}</a>
+        {%endfor%}
+        <hr class="hr-text">
+    </div>
+    <div class="container">
+      <h5>Lunch</h5>
+        {%for id,food in lunch_ids%}
+          <a href="{% url 'meal-update' pk=id %}" class="badge badge-success">{{food}}</a>
+        {%endfor%}
+        <hr class="hr-text">
+    </div>
+    <div class="container">
+      <h5>Dinner</h5>
+      {%for id,food in dinner_ids%}
+        <a href="{% url 'meal-update' pk=id %}" class="badge badge-success">{{food}}</a>
+      {%endfor%}
+      <hr class="hr-text">
+    </div>
+    <div class="container">
+      <h5>Snacks</h5>
+      {%for id,food in snack_ids%}
+        <a href="{% url 'meal-update' pk=id %}" class="badge badge-success">{{food}}</a>
+      {%endfor%}
+    </div>
+  </div>
+</div>
+<hr class="hr-text">
+<div class="row">
+  <div class="container">
+    <h4>Workouts logged today</h4>
+    <hr class="hr-text">
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card-header">Cardio</div>
+        <div class="card-body">
+          <h1 class="card-title">{{cardio_daily}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">Strength</div>
+        <div class="card-body">
+          <h1 class="card-title">{{strength_daily}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">Circuit</div>
+        <div class="card-body">
+          <h1 class="card-title">{{circuit_daily}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header">Yoga</div>
+        <div class="card-body">
+          <h1 class="card-title">{{yoga_daily}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="container">
+    <h4>Workouts logged this Week</h4>
+    <hr class="hr-text">
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card-header">Cardio</div>
+        <div class="card-body">
+          <h1 class="card-title">{{cardio_weekly}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">Strength</div>
+        <div class="card-body">
+          <h1 class="card-title">{{strength_weekly}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">Circuit</div>
+        <div class="card-body">
+          <h1 class="card-title">{{circuit_weekly}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header">Yoga</div>
+        <div class="card-body">
+          <h1 class="card-title">{{yoga_weekly}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+        <div class="card-header">Overall</div>
+        <div class="card-body">
+          <h1 class="card-title">{{workout_weekly_overall}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

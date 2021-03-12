@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% for object in object_list %}
+	<ul class="list-group">
+	  <li class="list-group-item">{{ object.user }}</li>
+	  <li class="list-group-item">your current goal is to {{ object.goal }} weight</li>
+	  <li class="list-group-item">your activity level is set to {{ object.activity_level }}</li>
+	  <li class="list-group-item">your daily calories goal is {{ object.goal_calories }} </li>
+	  <a href="{% url 'calcalc-update' pk=object.pk %}" class="btn btn-primary">Update Goal</a>
+	</ul>
+{% endfor %}
+{% endblock content %}
+
+	  
