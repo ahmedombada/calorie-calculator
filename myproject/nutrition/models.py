@@ -34,7 +34,7 @@ class Meal(models.Model):
 		('Snack', 'Snack'),
 		)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-	meal_name = models.CharField(max_length=100,choices= meal_choices, null=True)
+	meal = models.CharField(max_length=100,choices= meal_choices, null=True)
 	meal_contents = models.ManyToManyField(Food)
 	overall_KH = models.FloatField(null = True, blank = True)
 	overall_Protein = models.FloatField(null = True, blank = True)
@@ -54,6 +54,6 @@ class Meal(models.Model):
 
 
 	def __str__(self):
-		return self.meal_name
+		return self.meal
 
 

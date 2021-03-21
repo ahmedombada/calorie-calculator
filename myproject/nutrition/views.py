@@ -20,7 +20,7 @@ import datetime
 
 class MealCreateView(LoginRequiredMixin, CreateView):
 	model = Meal
-	fields = ['meal_name','meal_contents', 'serving_size']
+	fields = ['meal','meal_contents', 'serving_size']
 	success_message = 'Meal successfully created'
 
 
@@ -54,7 +54,7 @@ class MealCreateView(LoginRequiredMixin, CreateView):
 
 class MealUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Meal
-	fields = ['meal_name','meal_contents','serving_size']
+	fields = ['meal','meal_contents','serving_size']
 	# get_success_url = reverse_lazy('/')
 
 	def form_valid(self, form):
@@ -102,71 +102,71 @@ class MealListView(LoginRequiredMixin, ListView):
 		qs_goal_fats = FitnessGoal.objects.get(user=self.request.user).optiaml_fats
 		qs_all_meals= Meal.objects.all()
 
-		qs_daily_carbs_1 = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_daily_carbs_1 = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_daily_carbs_1 is None:
 			qs_daily_carbs_1 = 0
-		qs_daily_carbs_2 = Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_daily_carbs_2 = Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_daily_carbs_2 is None:
 			qs_daily_carbs_2 = 0
-		qs_daily_carbs_3 = Meal.objects.filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_daily_carbs_3 = Meal.objects.filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_daily_carbs_3 is None:
 			qs_daily_carbs_3 = 0
-		qs_daily_carbs_4 = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_daily_carbs_4 = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_daily_carbs_4 is None:
 			qs_daily_carbs_4 = 0
 
 
-		qs_daily_protein_1 = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_daily_protein_1 = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_daily_protein_1 is None:
 			qs_daily_protein_1 = 0
-		qs_daily_protein_2 = Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_daily_protein_2 = Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_daily_protein_2 is None:
 			qs_daily_protein_2 = 0
-		qs_daily_protein_3 = Meal.objects.filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_daily_protein_3 = Meal.objects.filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_daily_protein_3 is None:
 			qs_daily_protein_3 = 0
-		qs_daily_protein_4 = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_daily_protein_4 = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_daily_protein_4 is None:
 			qs_daily_protein_4 = 0
 
-		qs_daily_Fett_1 = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_daily_Fett_1 = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_daily_Fett_1 is None:
 			qs_daily_Fett_1 = 0
-		qs_daily_Fett_2 = Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_daily_Fett_2 = Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_daily_Fett_2 is None:
 			qs_daily_Fett_2 = 0
-		qs_daily_Fett_3 = Meal.objects.filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_daily_Fett_3 = Meal.objects.filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_daily_Fett_3 is None:
 			qs_daily_Fett_3 = 0
-		qs_daily_Fett_4 = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_daily_Fett_4 = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_daily_Fett_4 is None:
 			qs_daily_Fett_4 = 0
 
 
-		qs_br_oac = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
+		qs_br_oac = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
 		if qs_br_oac is None:
 			qs_br_oac = 0
-		qs_br_kh = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_br_kh = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_br_kh is None:
 			qs_br_kh = 0
-		qs_br_pr = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_br_pr = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_br_pr is None:
 			qs_br_pr = 0
-		qs_br_f = Meal.objects.filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_br_f = Meal.objects.filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_br_f is None:
 			qs_br_f = 0
 
 
-		qs_lu_oac = Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
+		qs_lu_oac = Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
 		if qs_lu_oac is None:
 			qs_lu_oac = 0
-		qs_lu_kh= Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_lu_kh= Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_lu_kh is None:
 			qs_lu_kh = 0
-		qs_lu_pr = Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_lu_pr = Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_lu_pr is None:
 			qs_lu_pr = 0
-		qs_lu_f = Meal.objects.filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_lu_f = Meal.objects.filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_lu_f is None:
 			qs_lu_f = 0
 
@@ -175,16 +175,16 @@ class MealListView(LoginRequiredMixin, ListView):
 
 
 
-		qs_di_oac = Meal.objects.filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
+		qs_di_oac = Meal.objects.filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
 		if qs_di_oac is None:
 			qs_di_oac = 0
-		qs_di_kh = Meal.objects.filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_di_kh = Meal.objects.filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_di_kh is None:
 			qs_di_kh = 0
-		qs_di_pr = Meal.objects.filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_di_pr = Meal.objects.filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_di_pr is None:
 			qs_di_pr = 0
-		qs_di_f = Meal.objects.filter(user=self.request.user, meal_name="Dinner").aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_di_f = Meal.objects.filter(user=self.request.user, meal="Dinner").aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_di_f is None:
 			qs_di_f = 0
 
@@ -192,33 +192,33 @@ class MealListView(LoginRequiredMixin, ListView):
 
 
 
-		qs_s_oac = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
+		qs_s_oac = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Calories'))['overall_Calories__sum']
 		if qs_s_oac is None:
 			qs_s_oac = 0
-		qs_s_kh = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
+		qs_s_kh = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_KH'))['overall_KH__sum']
 		if qs_s_kh is None:
 			qs_s_kh = 0
-		qs_s_pr = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
+		qs_s_pr = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Protein'))['overall_Protein__sum']
 		if qs_s_pr is None:
 			qs_s_pr = 0
-		qs_s_f = Meal.objects.filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
+		qs_s_f = Meal.objects.filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date)).aggregate(Sum('overall_Fett'))['overall_Fett__sum']
 		if qs_s_f is None:
 			qs_s_f = 0
 
 
-		qs_breakfast = Meal.objects.values('meal_contents').filter(user=self.request.user, meal_name="Breakfast", created_at__range=(start_date, end_date))
+		qs_breakfast = Meal.objects.values('meal_contents').filter(user=self.request.user, meal="Breakfast", created_at__range=(start_date, end_date))
 		qs_breakfast_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = qs_breakfast)
-		qs_lunch = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Lunch", created_at__range=(start_date, end_date)) 
+		qs_lunch = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Lunch", created_at__range=(start_date, end_date)) 
 		qs_lunch_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = qs_lunch)
-		qs_dinner = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Dinner", created_at__range=(start_date, end_date))
+		qs_dinner = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Dinner", created_at__range=(start_date, end_date))
 		qs_dinner_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = qs_dinner)
-		qs_snack = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Snack", created_at__range=(start_date, end_date))
+		qs_snack = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Snack", created_at__range=(start_date, end_date))
 		qs_snack_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = qs_snack)
 
-		qs_breakfast_meal_ids = list(Meal.objects.filter(user=self.request.user, meal_name="Breakfast").values_list('id', flat=True).order_by('-created_at'))
-		qs_lunch_meal_ids = list(Meal.objects.filter(user=self.request.user, meal_name="Lunch").values_list('id', flat=True).order_by('-created_at'))
-		qs_dinner_meal_ids = list(Meal.objects.filter(user=self.request.user, meal_name="Dinner").values_list('id', flat=True).order_by('-created_at'))
-		qs_snack_meal_ids = list(Meal.objects.filter(user=self.request.user, meal_name="Snack").values_list('id', flat=True).order_by('-created_at'))
+		qs_breakfast_meal_ids = list(Meal.objects.filter(user=self.request.user, meal="Breakfast").values_list('id', flat=True).order_by('-created_at'))
+		qs_lunch_meal_ids = list(Meal.objects.filter(user=self.request.user, meal="Lunch").values_list('id', flat=True).order_by('-created_at'))
+		qs_dinner_meal_ids = list(Meal.objects.filter(user=self.request.user, meal="Dinner").values_list('id', flat=True).order_by('-created_at'))
+		qs_snack_meal_ids = list(Meal.objects.filter(user=self.request.user, meal="Snack").values_list('id', flat=True).order_by('-created_at'))
 
 		breakfast_meal_contents_ids = zip(qs_breakfast_meal_ids, qs_breakfast_result)
 		Lunch_meal_contents_ids = zip(qs_lunch_meal_ids, qs_lunch_result)
@@ -313,20 +313,20 @@ class MealDetailView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super(MealDetailView, self).get_context_data(**kwargs)
-		qs_get_meal_name = list(Meal.objects.values_list("meal_name", flat=True).filter(id=self.kwargs['pk'])) #list(Meal.objects.filter(id=self.kwargs['pk']).values_list("meal_name"))
+		qs_get_meal = list(Meal.objects.values_list("meal", flat=True).filter(id=self.kwargs['pk'])) #list(Meal.objects.filter(id=self.kwargs['pk']).values_list("meal"))
 		qs_get_meal_serving = list(Meal.objects.values_list("serving_size", flat=True).filter(id=self.kwargs['pk']))
 		qs_get_meal_ids = list(Meal.objects.values_list("meal_contents", flat=True).filter(id=self.kwargs['pk']))
 		qs_get_meal_contents = list(Food.objects.values_list("lebensmittel", flat=True).filter(id__in=qs_get_meal_ids))
-		meal_detail_list = zip(qs_get_meal_name, qs_get_meal_contents, qs_get_meal_serving)
+		meal_detail_list = zip(qs_get_meal, qs_get_meal_contents, qs_get_meal_serving)
 		context['meals'] = meal_detail_list
 		# qs_all_meals= Meal.objects.all()
-		# detail_qs_breakfast = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Breakfast")
+		# detail_qs_breakfast = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Breakfast")
 		# detail_qs_breakfast_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = detail_qs_breakfast)
-		# detail_qs_lunch = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Lunch") 
+		# detail_qs_lunch = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Lunch") 
 		# detail_qs_lunch_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = detail_qs_lunch)
-		# detail_qs_dinner = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Dinner")
+		# detail_qs_dinner = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Dinner")
 		# detail_qs_dinner_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = detail_qs_dinner)
-		# detail_qs_snack = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal_name="Snack")
+		# detail_qs_snack = Meal.objects.values_list('meal_contents', flat=True).filter(user=self.request.user, meal="Snack")
 		# detail_qs_snack_result = Food.objects.values_list('lebensmittel', flat=True).filter(id__in = detail_qs_snack)
 		# context = super(MealDetailView, self).get_context_data(**kwargs)
 		# context['meals'] = qs_all_meals
@@ -359,5 +359,5 @@ def AddFoodView(request):
 	return render(request, "nutrition/add_food.html", {'form': form})
 
 
-# Meal.objects.values_list('meal_contents', flat=True).filter(user="1", meal_name="Breakfast")
+# Meal.objects.values_list('meal_contents', flat=True).filter(user="1", meal="Breakfast")
 # Food.objects.values_list('lebensmittel', flat=True).filter(id__in = result)
