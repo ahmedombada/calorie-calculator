@@ -12,3 +12,6 @@ functionalities to be added:
 1. users should be able to create a meal and save it with its over all calories
 
 this is considered done when users basically have a self hosted nutrition diary/calculator. 
+
+P.S:
+im an infrastructure engineer and not a software developer, so, excuse my dirty code :D.
